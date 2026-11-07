@@ -6,3 +6,12 @@ build/
 dist/
 *.egg-info/
 .coverage
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+report.json
+
+.wheel-venv/
+pip-*/
+pytest-of-root/

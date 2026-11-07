@@ -28,3 +28,9 @@ def test_demo_does_not_claim_certification():
     output = run_demo()
     assert output["status"] == "supported"
     assert output["independent_reproduction"] is False
+
+
+@pytest.mark.parametrize("function", [dt_fusion_energy_mev, dt_fusion_energy_joules, energy_from_mass_defect])
+def test_overflow_rejected(function):
+    with pytest.raises(ValueError, match="overflow"):
+        function(1e308)

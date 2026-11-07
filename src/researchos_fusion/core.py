@@ -36,6 +36,8 @@ class Evidence:
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
+        if type(self.supports) is not bool:
+            raise ValueError("Evidence supports must be a boolean")
         if not all((self.identifier.strip(), self.claim_id.strip(), self.source.strip(),
                     self.method.strip(), self.finding.strip(), self.independent_group.strip())):
             raise ValueError("Evidence identifiers, provenance, method, finding and group are required")
@@ -93,6 +95,13 @@ class AssuranceEngine:
             raise ValueError(f"Duplicate claim: {claim.identifier}")
         if claim.status != ClaimStatus.GENERATED or claim.evidence or claim.history:
             raise ValueError("New claims must begin generated, without evidence/history")
+        if any((claim.independent_reproduction, claim.adversarial_test_passed,
+                claim.stability_test_passed, claim.governance_approved)):
+            raise ValueError("New claims cannot carry preapproved gates")
+        if len(set(claim.dependencies)) != len(claim.dependencies):
+            raise ValueError("Duplicate dependencies")
+        if any(dep not in self.claims for dep in claim.dependencies):
+            raise ValueError("Dependencies must already be registered")
         self.claims[claim.identifier] = claim
         self._log(claim, "register", "Registered new candidate claim")
 
@@ -104,9 +113,7 @@ class AssuranceEngine:
         self._evidence_ids.add(evidence.identifier)
         self._log(claim, "evidence", evidence.identifier)
         if not evidence.supports and claim.status not in (ClaimStatus.GENERATED, ClaimStatus.CONTESTED):
-            prior = claim.status
-            claim.status = ClaimStatus.CONTESTED
-            self._log(claim, "transition", f"{prior.value} -> contested: conflicting evidence {evidence.identifier}")
+            self._contest(claim.identifier, f"conflicting evidence {evidence.identifier}")
 
     def transition(self, claim_id: str, target: ClaimStatus, *, rationale: str) -> None:
         claim = self.claims[claim_id]
@@ -133,9 +140,31 @@ class AssuranceEngine:
             for dep in claim.dependencies:
                 if dep not in self.claims or self.claims[dep].status != ClaimStatus.ASSURED:
                     raise TransitionError(f"Dependency {dep} is not assured")
+        if target == ClaimStatus.CONTESTED:
+            self._contest(claim_id, rationale)
+            return
         before = claim.status
         claim.status = target
         self._log(claim, "transition", f"{before.value} -> {target.value}: {rationale}")
+
+    def _contest(self, claim_id: str, reason: str) -> None:
+        queue = [claim_id]
+        visited = set()
+        while queue:
+            identifier = queue.pop()
+            if identifier in visited:
+                continue
+            visited.add(identifier)
+            claim = self.claims[identifier]
+            prior = claim.status
+            claim.independent_reproduction = False
+            claim.adversarial_test_passed = False
+            claim.stability_test_passed = False
+            claim.governance_approved = False
+            if prior != ClaimStatus.GENERATED:
+                claim.status = ClaimStatus.CONTESTED
+                self._log(claim, "transition", f"{prior.value} -> contested: {reason}")
+            queue.extend(c.identifier for c in self.claims.values() if identifier in c.dependencies)
 
     def export(self, claim_id: str) -> dict[str, Any]:
         """Return a JSON-serializable snapshot of the claim and audit history."""

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "run_id": "synthetic-reference-001",
+  "claim": "Synthetic D-T reference fixture matches the declared rounded value",
+  "scope": "Software acceptance exercise only; no experimental validation",
+  "operator": "example-operator",
+  "artifacts": [
+    {
+      "id": "reference",
+      "path": "reference_measurements.json",
+      "source": "Repository synthetic fixture; not experimental data",
+      "license": "Apache-2.0",
+      "provenance_group": "internal-reference",
+      "sha256": "3087493e43caa91327d4beb9ab652c1a69214c2503f9df9cc2d4fccb23a31635"
+    }
+  ],
+  "checks": [
+    {
+      "id": "reference-energy",
+      "artifact_id": "reference",
+      "quantity": "reaction energy",
+      "unit": "MeV",
+      "observed_key": "energy_mev",
+      "expected": 17.6,
+      "absolute_tolerance": 0.01
+    }
+  ],
+  "reviews": []
+}
