@@ -71,3 +71,21 @@ These are **planned investigations**; the repository presently contains no train
 ## License
 
 See [LICENSE](LICENSE) for repository terms.
+
+## Offline lab workflow (v0.2.0)
+
+Evaluate local JSON measurements against declared acceptance tolerances, verify
+artifact hashes, record independent-review attestations, and retain transactional
+SQLite records with an integrity hash chain:
+
+```bash
+researchos-fusion lab-run examples/reference_run.json --ledger runs.sqlite > report.json
+# Expected exit 1: the synthetic example awaits review.
+researchos-fusion ledger-verify runs.sqlite
+```
+
+Read the [lab evaluation protocol](docs/LAB_READINESS.md) for the manifest contract,
+exit codes, checkpoint verification, data handling and real-data qualification steps.
+`reviewed` means checks passed with recorded approvals; identities, source independence
+and scientific truth are not automatically verified. The lab workflow does not promote
+the prototype claim engine to `assured` and does not control equipment.

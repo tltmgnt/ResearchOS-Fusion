@@ -97,3 +97,30 @@ def test_dependency_not_assured_blocks_assurance():
         engine.transition("c1", target, rationale="Test progression")
     with pytest.raises(TransitionError, match="Dependency"):
         engine.transition("c1", ClaimStatus.ASSURED, rationale="Dependency unresolved")
+
+
+def test_contestation_invalidates_dependent_claim_and_old_gates():
+    engine = _unverified()
+    engine.register(Claim("c2", "Dependent claim", dependencies=["c1"]))
+    engine.transition("c2", ClaimStatus.UNVERIFIED, rationale="Review")
+    engine.claims["c1"].governance_approved = True
+    engine.claims["c2"].independent_reproduction = True
+    engine.transition("c1", ClaimStatus.CONTESTED, rationale="Challenge")
+    assert engine.claims["c2"].status == ClaimStatus.CONTESTED
+    assert not engine.claims["c1"].governance_approved
+    assert not engine.claims["c2"].independent_reproduction
+
+
+def test_preapproved_claim_rejected():
+    with pytest.raises(ValueError, match="preapproved"):
+        AssuranceEngine().register(Claim("c", "Claim", governance_approved=True))
+
+
+def test_missing_dependency_rejected():
+    with pytest.raises(ValueError, match="already be registered"):
+        AssuranceEngine().register(Claim("c", "Claim", dependencies=["missing"]))
+
+
+def test_evidence_support_must_be_boolean():
+    with pytest.raises(ValueError, match="boolean"):
+        _evidence(supports="false")
