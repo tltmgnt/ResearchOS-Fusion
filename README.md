@@ -1,5 +1,14 @@
 # ResearchOS-Fusion
 
+<!-- research-workbench:start -->
+## Research workbench
+
+[Open this repository's private workbench](https://tltmgnt-researchos-fusion.troturn31.chatgpt.site) · [All repository workbenches](https://tltmgnt-research-workbenches.troturn31.chatgpt.site)
+
+The hosted interface requires ChatGPT sign-in and access to the private Site. It supports browser-local research records, evidence fingerprints and workspace export. It is a prototype: no live AI model or repository backend is connected, and it does not establish external validation.
+<!-- research-workbench:end -->
+
+
 **An experimental epistemic-assurance layer for AI-assisted nuclear fusion research.**
 
 ResearchOS-Fusion explores how Topological Epistemic Control Theory (TECT) can organize scientific claims, evidence, adversarial challenges, reproducibility checks, governance gates, and auditable transitions. It is a **research prototype**, not a deployed fusion controller, plasma predictor, validated fusion simulator, or safety certification system.
