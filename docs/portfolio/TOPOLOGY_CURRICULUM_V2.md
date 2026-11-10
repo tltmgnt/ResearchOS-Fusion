@@ -1,6 +1,6 @@
 # Topology compatibility and curriculum v2 — ResearchOS-Fusion
 
-Version 2 adapts the explicit-molecular-graph teaching pattern to this repository's actual role. This is documentation and a learning/decision framework; it introduces no mathematical engine, runtime dependency or operational permission.
+The verified edition of version 2 adapts the explicit-molecular-graph teaching pattern to this repository's actual role. This edition adds executable learning checks and reviewed answer keys. It does not introduce a new topology engine or grant operational permission.
 
 ## Repository decision
 
@@ -40,47 +40,53 @@ Prerequisites: basic programming, sets, functions and graph vocabulary. Work in 
 | 5. Comparison | Justify mathematical necessity and cost. | Complete the six-criterion card for the existing approach and one proposed alternative; record unknowns honestly. | Evidence-backed recommendation with baseline and explicit veto conditions. |
 | 6. Reproduction | Communicate the bounded result. | Reproduce the capstone using existing offline fixtures and record software version, inputs, outputs and limitations. | Reviewable notebook or report distinguishing computation, replay, independent evaluation and authorization. |
 
-## Source-linked reading laboratory
+## Worked reasoning and source explanation
 
-The table is a guided selection of source lines, not an assertion that the whole repository is covered. Line numbers refer to the inspected source blob `32403fe1c837145b8203bf975e84382a40310be3` in [src/researchos_fusion/core.py](../../src/researchos_fusion/core.py). Recheck anchors after source changes.
+AssuranceEngine enforces an explicit lifecycle. An unsupported UNVERIFIED claim cannot become SUPPORTED. A supplied synthetic supporting record permits that local transition but one provenance group and no reproduction flag do not permit REPRODUCED. Adding contradictory evidence moves the claim to CONTESTED. The lab intentionally never sets reproduction or governance flags merely to reach ASSURED.
 
-| Line | Statement | Learning check |
+Read the [inspected source](https://github.com/tltmgnt/ResearchOS-Fusion/blob/5132f2bcd57dadd73b0205dcb9fd15d7ad4d768b/src/researchos_fusion/core.py) alongside the [executable answer key](../../curriculum/lab.py). The source link is pinned to the inspected revision; the lab and any explicitly described fix are in this change.
+
+## Run the worked laboratory
+
+From the repository root, with Python 3.12 (the recorded local version is 3.12.14):
+
+```sh
+python curriculum/lab.py --verify
+```
+
+The lab checks **5 explicit expectations** against existing repository functions. It prints a JSON case report and exits nonzero on a wrong result. `--verify` additionally compares the entire case report with [expected.json](../../curriculum/expected.json). Read the input and predict each result before opening the answer key. No API account, credentials, model download, trading action or equipment connection is needed.
+
+| Checkpoint | Expected answer |
+| --- | --- |
+| cannot skip to assured | `"TransitionError"` |
+| support requires evidence | `"TransitionError"` |
+| supported is recorded state | `"supported"` |
+| one group is not reproduction | `"TransitionError"` |
+| contradiction reopens claim | `"contested"` |
+
+The comparisons above encode independently specified small examples and contract expectations; a passing answer key is not evidence of complete domain correctness. The original functions and their existing test suites remain the authority for broader supported contracts.
+
+## Learner tasks and assessment rubric
+
+1. Before running the lab, predict every expected answer and derive one numeric result or state transition by hand.
+2. Explain the worked reasoning above using the referenced source, including the rejected or counterexample case.
+3. Add a new valid example and a nearby failing example. Explain which assumption changes, then compare against the existing implementation. For concept/static labs, keep the result explicitly at that level.
+4. Complete the scorecard for a proposed extension and a simpler baseline. Leave measurements unknown until collected; a task that the baseline already solves is not evidence for additional topology.
+
+| Competency | Points | Full-credit evidence |
 | --- | --- | --- |
-| [11](../../src/researchos_fusion/core.py#L11) | `class ClaimStatus(str, Enum):` | State the input/output contract and trace one normal and one failing case. |
-| [22](../../src/researchos_fusion/core.py#L22) | `class TransitionError(ValueError):` | State the input/output contract and trace one normal and one failing case. |
-| [27](../../src/researchos_fusion/core.py#L27) | `class Evidence:` | State the input/output contract and trace one normal and one failing case. |
-| [38](../../src/researchos_fusion/core.py#L38) | `def __post_init__(self) -> None:` | State the input/output contract and trace one normal and one failing case. |
-| [40](../../src/researchos_fusion/core.py#L40) | `raise ValueError("Evidence supports must be a boolean")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [43](../../src/researchos_fusion/core.py#L43) | `raise ValueError("Evidence identifiers, provenance, method, finding and group are required")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [47](../../src/researchos_fusion/core.py#L47) | `class Claim:` | State the input/output contract and trace one normal and one failing case. |
-| [60](../../src/researchos_fusion/core.py#L60) | `def __post_init__(self) -> None:` | State the input/output contract and trace one normal and one failing case. |
-| [62](../../src/researchos_fusion/core.py#L62) | `raise ValueError("Claim identifier and statement are required")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [64](../../src/researchos_fusion/core.py#L64) | `raise ValueError("A claim cannot depend on itself")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [68](../../src/researchos_fusion/core.py#L68) | `class ValidationResult:` | State the input/output contract and trace one normal and one failing case. |
-| [88](../../src/researchos_fusion/core.py#L88) | `class AssuranceEngine:` | State the input/output contract and trace one normal and one failing case. |
-| [89](../../src/researchos_fusion/core.py#L89) | `def __init__(self) -> None:` | State the input/output contract and trace one normal and one failing case. |
-| [93](../../src/researchos_fusion/core.py#L93) | `def register(self, claim: Claim) -> None:` | State the input/output contract and trace one normal and one failing case. |
-| [95](../../src/researchos_fusion/core.py#L95) | `raise ValueError(f"Duplicate claim: {claim.identifier}")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [97](../../src/researchos_fusion/core.py#L97) | `raise ValueError("New claims must begin generated, without evidence/history")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [100](../../src/researchos_fusion/core.py#L100) | `raise ValueError("New claims cannot carry preapproved gates")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [102](../../src/researchos_fusion/core.py#L102) | `raise ValueError("Duplicate dependencies")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [104](../../src/researchos_fusion/core.py#L104) | `raise ValueError("Dependencies must already be registered")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [108](../../src/researchos_fusion/core.py#L108) | `def add_evidence(self, evidence: Evidence) -> None:` | State the input/output contract and trace one normal and one failing case. |
-| [111](../../src/researchos_fusion/core.py#L111) | `raise ValueError(f"Duplicate evidence identifier: {evidence.identifier}")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [118](../../src/researchos_fusion/core.py#L118) | `def transition(self, claim_id: str, target: ClaimStatus, *, rationale: str) -> None:` | State the input/output contract and trace one normal and one failing case. |
-| [121](../../src/researchos_fusion/core.py#L121) | `raise TransitionError(f"Invalid transition: {claim.status.value} -> {target.value}")` | Construct the triggering input and explain why rejection preserves the contract. |
-| [123](../../src/researchos_fusion/core.py#L123) | `raise TransitionError("A transition rationale is required")` | Construct the triggering input and explain why rejection preserves the contract. |
-## Assessment and verification
+| Model and contract | 0–3 | Correct objects, relation direction, labels/units, input bounds and missingness. |
+| Derivation and trace | 0–3 | Hand derivation agrees with the specified fixture; source steps explain why. |
+| Counterexample | 0–3 | New failing/boundary case has a justified expected result; rejection is not suppressed. |
+| Scope and necessity | 0–3 | Distinguishes software behavior from validation and compares an explicit simpler alternative. |
 
-A learner must explain the model, trace the capstone, identify a counterexample and state the scope boundary. Assess these four competencies equally; a numerical score cannot compensate for an unsupported scientific or operational claim.
+Completion requires at least 10/12 and no zero in scope/necessity. A runnable answer key alone is not evidence that a learner achieved this competency. No learner-outcome study has been performed.
 
-Relevant existing checks:
+## Verification evidence and maintenance
 
-- [tests/test_core.py](../../tests/test_core.py)
-- [tests/test_lab.py](../../tests/test_lab.py)
-- [tests/test_physics.py](../../tests/test_physics.py)
+[VALIDATION.json](../../curriculum/VALIDATION.json) records the inspected base revision, local Python version, source/fixture hashes, lab/answer hashes, case count and exit codes. All cases were executed locally. An in-memory copy with a deliberately wrong comparison was also executed and returned nonzero, checking that the grading failure path is active. Those injected failures are harness checks, not scientific adversarial evaluations.
 
-Follow [README](../../README.md) for environment and installed-package instructions. Read scripts before execution; source-reading exercises do not authorize provider calls, model downloads, live orders, hardware actions or messages. Synthetic fixtures establish software behavior only. This documentation change does not report those exercises as already executed.
+The dedicated [curriculum workflow](../../.github/workflows/curriculum.yml) runs the same `--verify` command on relevant pull-request changes. CI status is reported by GitHub; the local record does not assert that remote CI passed. Existing full-suite and installed-package requirements still apply to runtime changes. When source or fixture semantics change, inspect the diff and rederive answers before updating expected.json. Never regenerate expected answers solely to silence a failure. Refresh the local validation record after an actual run; do not rewrite its recorded base revision as if a new run occurred.
 
 ## Interoperability and adoption gate
 

@@ -1,0 +1,22 @@
+{
+  "case_count": 5,
+  "command": "python curriculum/lab.py --verify",
+  "exit_code": 0,
+  "expected_sha256": "6b48b244b6d70b5de9d80f35b97dc80fc0eedc2e06a528071100a4ef02bfe27f",
+  "lab_sha256": "fff56d8f23156597d59f44aa07515bc2cbcfea47bfe58c9ef678f6bff561575e",
+  "python": "3.12.14",
+  "repository": "tltmgnt/ResearchOS-Fusion",
+  "schema_version": 1,
+  "scope": "Local synthetic curriculum validation on the recorded source snapshot; not complete repository CI, learning outcomes, independent scientific reproduction or deployment approval",
+  "source_and_fixture_sha256": {
+    "examples/reference_measurements.json": "3087493e43caa91327d4beb9ab652c1a69214c2503f9df9cc2d4fccb23a31635",
+    "examples/reference_run.json": "2886f0df6e5c1e0a81ce41ba16a81d0bdccf6b77bf58546a250d1898472839c3",
+    "src/researchos_fusion/__init__.py": "612819ba819919a3819edb483ef5e0bda8a5bfdeb873c617b4bf35b0d04e521e",
+    "src/researchos_fusion/cli.py": "45478c829c892613e65e4762c976d5ff0eb41a7fbc0ee02c81e274d46f42c6ef",
+    "src/researchos_fusion/core.py": "202fd4d82a1082cf5e2a9ff58e6fd44180f7004582ddeb52e4d677e26e7ce48d",
+    "src/researchos_fusion/lab.py": "837df507228896fe9fecf2a3b5f56f4edda2c40ea9d4ebba36fd80768f833f34",
+    "src/researchos_fusion/physics.py": "f7d372eb51b199a5bfa70452f0a01fd66858a7ce83c63c27f8c49880e8a8ef16"
+  },
+  "source_base_commit": "5132f2bcd57dadd73b0205dcb9fd15d7ad4d768b",
+  "wrong_expectation_exit_code": 1
+}

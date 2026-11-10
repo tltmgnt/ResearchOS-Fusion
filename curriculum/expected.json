@@ -1,0 +1,38 @@
+{
+  "case_count": 5,
+  "cases": [
+    {
+      "actual": "TransitionError",
+      "case": "cannot skip to assured",
+      "expected": "TransitionError",
+      "passed": true
+    },
+    {
+      "actual": "TransitionError",
+      "case": "support requires evidence",
+      "expected": "TransitionError",
+      "passed": true
+    },
+    {
+      "actual": "supported",
+      "case": "supported is recorded state",
+      "expected": "supported",
+      "passed": true
+    },
+    {
+      "actual": "TransitionError",
+      "case": "one group is not reproduction",
+      "expected": "TransitionError",
+      "passed": true
+    },
+    {
+      "actual": "contested",
+      "case": "contradiction reopens claim",
+      "expected": "contested",
+      "passed": true
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Synthetic curriculum checks only",
+  "status": "PASS"
+}
